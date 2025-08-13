@@ -7,5 +7,6 @@ enum Element {
 	FIRE,
 	ICE,
 	ELECTRIC,
+	POISON,
 	NONE,
 }

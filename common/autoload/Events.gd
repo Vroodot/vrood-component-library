@@ -9,7 +9,7 @@ var data: DataEvents = DataEvents.new()
 
 class PlayerEvents:
 	signal health_altered(origin: int, updated: int, emitter: Object)
-
+	signal died()
 
 class DataEvents:
 	signal save_requested(requester: Object)

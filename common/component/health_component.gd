@@ -65,6 +65,12 @@ signal resistance_altered(origin, int, new: int, element: Types.Element)
 			var origin := resist_electric
 			resist_electric = v
 			resistance_altered.emit(origin, resist_electric, Types.Element.ELECTRIC)
+@export var resist_poison: int:
+	set(v):
+		if resist_poison != v:
+			var origin := resist_poison
+			resist_poison = v
+			resistance_altered.emit(origin, resist_electric, Types.Element.POISON)
 
 
 
@@ -102,6 +108,8 @@ func calculate_damage(amount: int, is_magical: bool = false, element: Types.Elem
 			reduction += resist_ice
 		Types.Element.ELECTRIC:
 			reduction += resist_electric
+		Types.Element.POISON:
+			reduction += resist_poison
 		_:
 			pass
 	return amount - reduction

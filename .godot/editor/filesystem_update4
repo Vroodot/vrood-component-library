@@ -1,3 +1,8 @@
 res://common/autoload/Types.gd
-res://common/autoload/Events.gd
 res://common/component/health_component.gd
+res://common/autoload/Events.gd
+res://entities/CharacterBody/GameEntityCharacterBody2D.gd
+res://entities/RigidBody/GameEntityRigidBody2D.gd
+res://entities/StaticBody/GameEntityStaticBody.gd
+res://common/component/movement_component.gd
+res://game_entity_character_body_2d.tscn
