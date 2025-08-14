@@ -8,6 +8,7 @@ class_name PlayerInputComponent
 @export var move_right: StringName = &"right"
 
 
+@export var interact: StringName = &"interact"
 
 ## TODO finish input handling
 func get_input_vector() -> Vector2:
@@ -15,3 +16,6 @@ func get_input_vector() -> Vector2:
 
 func get_input_vect_normalized() -> Vector2:
 	return get_input_vector().normalized()
+
+func wants_interact() -> bool:
+	return Input.is_action_just_pressed(interact)

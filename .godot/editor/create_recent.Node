@@ -1,6 +1,7 @@
+CollisionShape2D
+InteractComponent
 AnimatedSprite2D
 PlayerInputComponent
-CollisionShape2D
 Hurtbox
 Node
 HealthComponent

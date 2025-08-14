@@ -1,8 +1,11 @@
 res://entities/CharacterBody/player/Player.tscn
+res://common/util/CollisionLayerLib.gd
+res://common/component/area2d/interact/interactable_component.gd
+res://common/component/area2d/interact/interact_component.gd
 res://common/component/player_input_component.gd
-res://common/autoload/StatData.gd
 res://entities/CharacterBody/player/PlayerEntity.gd
-res://common/component/health_component.gd
 res://entities/CharacterBody/GameEntityCharacterBody2D.gd
+res://common/autoload/Types/Types.gd
 res://entities/RigidBody/GameEntityRigidBody2D.gd
 res://entities/StaticBody/GameEntityStaticBody.gd
+res://common/autoload/StatData.gd

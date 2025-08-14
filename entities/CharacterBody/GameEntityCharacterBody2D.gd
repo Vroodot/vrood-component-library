@@ -1,12 +1,14 @@
 extends CharacterBody2D
 class_name GameEntityCharacterBody2D
 
+
+
 @export_group("States")
 @export var is_on_fire: bool = false
 @export var is_wet: bool = false
 @export var is_electrified: bool = false
 @export var is_poisoned: bool = false
-
+@export var faction: Types.Faction = Types.Faction.NEUTRAL
 
 @export_group("Components")
 @export var health: HealthComponent

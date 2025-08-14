@@ -37,7 +37,7 @@ class DefaultStats:
 	var resist_physical: int = 1
 	var resist_generic: int = 1
 
-
+# Random Example
 class HumanNPCStats:
 	var max_hp: int = 25
 	var speed_base: float = 150.0

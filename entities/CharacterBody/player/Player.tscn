@@ -1,15 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://k885uadal2rw"]
+[gd_scene load_steps=10 format=3 uid="uid://k885uadal2rw"]
 
 [ext_resource type="Script" uid="uid://bbufq5tiwns2a" path="res://entities/CharacterBody/player/PlayerEntity.gd" id="1_xkdtp"]
 [ext_resource type="Script" uid="uid://dp670i8nrda32" path="res://common/component/movement_component.gd" id="2_oise8"]
 [ext_resource type="Script" uid="uid://brmtgy1xam32m" path="res://common/component/health_component.gd" id="3_78oop"]
-[ext_resource type="Script" uid="uid://cjhd81bkfcg4c" path="res://common/component/area2d/hurtbox.gd" id="4_1xsij"]
-[ext_resource type="Script" uid="uid://bkrq3ws3iwmgx" path="res://common/component/player_input_component.gd" id="4_oise8"]
+[ext_resource type="Script" uid="uid://cjhd81bkfcg4c" path="res://common/component/area2d/combat/hurtbox.gd" id="4_1xsij"]
+[ext_resource type="Script" uid="uid://bkrq3ws3iwmgx" path="res://common/component/input/player_input_component.gd" id="4_oise8"]
+[ext_resource type="Script" uid="uid://dkkgnfrtrhii5" path="res://common/component/area2d/interact/interact_component.gd" id="6_78oop"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_j7iib"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fk1ve"]
 radius = 15.1327
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1xsij"]
+radius = 15.0
 
 [node name="PlayerEntity" type="CharacterBody2D" node_paths=PackedStringArray("player_input", "health", "move", "hurtbox")]
 script = ExtResource("1_xkdtp")
@@ -46,3 +50,10 @@ shape = SubResource("CircleShape2D_fk1ve")
 debug_color = Color(0.882353, 0.6, 0.701961, 0.419608)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="InteractComponent" type="Area2D" parent="."]
+script = ExtResource("6_78oop")
+metadata/_custom_type_script = "uid://dkkgnfrtrhii5"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractComponent"]
+shape = SubResource("CircleShape2D_1xsij")

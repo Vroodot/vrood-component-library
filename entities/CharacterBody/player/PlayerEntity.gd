@@ -2,6 +2,7 @@ extends GameEntityCharacterBody2D
 class_name PlayerEntity
 
 @export var player_input: PlayerInputComponent
+@export var interact_area: InteractComponent
 
 
 func _ready() -> void:
@@ -13,16 +14,20 @@ func _physics_process(delta: float) -> void:
 	move.move_simple(player_input.get_input_vect_normalized())
 	move_and_slide()
 
+func _process(delta: float) -> void:
+	if player_input.wants_interact():
+		interact_area.interact()
+
 
 func add_to_groups() -> void:
+	faction = Types.Faction.PLAYER
 	self.add_to_group("player")
 
 
 func init_components() -> void:
 	if health:
+		# TODO: Serialize Player's StatData for SaveLoaders
 		health.hp_altered.connect(_on_hp_change)
-		
-		
 		health.hp_max = StatData.player.max_hp
 		health.resist_fire = StatData.player.resist_fire
 		health.resist_ice = StatData.player.resist_ice
@@ -43,4 +48,5 @@ func init_components() -> void:
 
 
 func _on_hp_change(origin: int, new: int) -> void:
+	# Just an example, nothing currently uses this signal as of 8/14/25
 	Events.player.health_altered.emit(origin, new)

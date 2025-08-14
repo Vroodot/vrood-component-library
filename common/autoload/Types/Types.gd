@@ -11,6 +11,11 @@ extends Node
 @export var color_poison := Color.WEB_PURPLE
 @export var color_basic := Color.WHITE
 
+@export var color_enemy := Color.RED
+@export var color_allies := Color.BLUE
+@export var color_neutral := Color.YELLOW
+
+
 enum Element {
 	FIRE,
 	ICE,
@@ -18,6 +23,26 @@ enum Element {
 	POISON,
 	NONE,
 }
+
+enum Faction {
+	ENEMY,
+	ALLY,
+	NEUTRAL,
+	PLAYER,
+}
+
+
+func get_color_from_faction(faction: Faction) -> Color:
+	match faction:
+		Faction.ENEMY:
+			return color_enemy
+		Faction.ALLY:
+			return color_allies
+		Faction.NEUTRAL:
+			return color_neutral
+		_:
+			return color_basic
+
 
 func get_color_from_element(element: Element) -> Color:
 	match element:
