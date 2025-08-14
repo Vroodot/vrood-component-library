@@ -10,7 +10,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	move.move_simple(player_input.get_input_vector(), delta)
+	move.move_simple(player_input.get_input_vect_normalized())
 	move_and_slide()
 
 
@@ -21,9 +21,17 @@ func add_to_groups() -> void:
 func init_components() -> void:
 	if health:
 		health.hp_altered.connect(_on_hp_change)
+		
+		
 		health.hp_max = StatData.player.max_hp
-		health.hp_current = health.hp_max #TODO replace with serialization
-
+		health.resist_fire = StatData.player.resist_fire
+		health.resist_ice = StatData.player.resist_ice
+		health.resist_electric = StatData.player.resist_electric
+		health.resist_poison = StatData.player.resist_poison
+		health.resist_magic = StatData.player.resist_magic
+		health.resist_physical = StatData.player.resist_physical
+		health.resist_generic = StatData.player.resist_generic
+		health.hp_current = health.hp_max
 	if hurtbox:
 		if hurtbox.health == null:
 			hurtbox.health = health

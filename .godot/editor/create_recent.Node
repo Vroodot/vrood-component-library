@@ -1,3 +1,5 @@
+AnimatedSprite2D
+PlayerInputComponent
 CollisionShape2D
 Hurtbox
 Node

@@ -20,6 +20,13 @@ func _ready() -> void:
 func init_components() -> void:
 	if health:
 		health.hp_max = StatData.default.max_hp
+		health.resist_fire = StatData.default.resist_fire
+		health.resist_ice = StatData.default.resist_ice
+		health.resist_electric = StatData.default.resist_electric
+		health.resist_poison = StatData.default.resist_poison
+		health.resist_magic = StatData.default.resist_magic
+		health.resist_physical = StatData.default.resist_physical
+		health.resist_generic = StatData.default.resist_generic
 	if hurtbox:
 		if hurtbox.health == null:
 			hurtbox.health = health

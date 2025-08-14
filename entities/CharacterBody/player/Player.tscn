@@ -1,17 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://k885uadal2rw"]
+[gd_scene load_steps=8 format=3 uid="uid://k885uadal2rw"]
 
 [ext_resource type="Script" uid="uid://bbufq5tiwns2a" path="res://entities/CharacterBody/player/PlayerEntity.gd" id="1_xkdtp"]
 [ext_resource type="Script" uid="uid://dp670i8nrda32" path="res://common/component/movement_component.gd" id="2_oise8"]
 [ext_resource type="Script" uid="uid://brmtgy1xam32m" path="res://common/component/health_component.gd" id="3_78oop"]
 [ext_resource type="Script" uid="uid://cjhd81bkfcg4c" path="res://common/component/area2d/hurtbox.gd" id="4_1xsij"]
+[ext_resource type="Script" uid="uid://bkrq3ws3iwmgx" path="res://common/component/player_input_component.gd" id="4_oise8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_j7iib"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fk1ve"]
 radius = 15.1327
 
-[node name="PlayerEntity" type="CharacterBody2D" node_paths=PackedStringArray("health", "move", "hurtbox")]
+[node name="PlayerEntity" type="CharacterBody2D" node_paths=PackedStringArray("player_input", "health", "move", "hurtbox")]
 script = ExtResource("1_xkdtp")
+player_input = NodePath("Components/PlayerInputComponent")
 health = NodePath("Components/HealthComponent")
 move = NodePath("Components/MovementComponent")
 hurtbox = NodePath("Hurtbox")
@@ -19,12 +21,17 @@ metadata/_custom_type_script = "uid://bbufq5tiwns2a"
 
 [node name="Components" type="Node" parent="."]
 
-[node name="MovementComponent" type="Node" parent="Components"]
+[node name="MovementComponent" type="Node" parent="Components" node_paths=PackedStringArray("target")]
 script = ExtResource("2_oise8")
+target = NodePath("../..")
 metadata/_custom_type_script = "uid://dp670i8nrda32"
 
 [node name="HealthComponent" type="Node" parent="Components"]
 script = ExtResource("3_78oop")
+
+[node name="PlayerInputComponent" type="Node" parent="Components"]
+script = ExtResource("4_oise8")
+metadata/_custom_type_script = "uid://bkrq3ws3iwmgx"
 
 [node name="PhysicsCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_j7iib")
@@ -37,3 +44,5 @@ metadata/_custom_type_script = "uid://cjhd81bkfcg4c"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_fk1ve")
 debug_color = Color(0.882353, 0.6, 0.701961, 0.419608)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

@@ -18,7 +18,7 @@ signal resistance_altered(origin, int, new: int, element: Types.Element)
 			var origin := hp_max
 			hp_max = v
 			max_hp_altered.emit(origin, hp_max)
-@export var hp_current: int:
+var hp_current: int:
 	set(v):
 		if hp_current != v:
 			var original: int = hp_current
@@ -57,7 +57,7 @@ signal resistance_altered(origin, int, new: int, element: Types.Element)
 		if resist_fire != v:
 			var origin := resist_fire
 			resist_fire = v
-			resistance_altered.emit(origin, resist_fire, Types.Elements.FIRE)
+			resistance_altered.emit(origin, resist_fire, Types.Element.FIRE)
 @export var resist_ice: int:
 	set(v):
 		if resist_ice != v:

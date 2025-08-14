@@ -1,0 +1,3 @@
+res://entities/CharacterBody/GameEntityCharacterBody2D.gd
+res://entities/RigidBody/GameEntityRigidBody2D.gd
+res://entities/StaticBody/GameEntityStaticBody.gd
