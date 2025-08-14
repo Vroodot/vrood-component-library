@@ -13,8 +13,11 @@ signal resistance_altered(origin, int, new: int, element: Types.Element)
 @export var hp_max: int = 100:
 	set(v):
 		if hp_max != v:
+			if v < 1:
+				v = 1
+			var origin := hp_max
 			hp_max = v
-			
+			max_hp_altered.emit(origin, hp_max)
 @export var hp_current: int:
 	set(v):
 		if hp_current != v:
@@ -27,7 +30,9 @@ signal resistance_altered(origin, int, new: int, element: Types.Element)
 				hp_altered.emit(original, hp_current)
 
 
+
 @export_group("Extras")
+#region Damage Resist
 @export_subgroup("Damage Resistance")
 @export var resist_generic: int:
 	set(v):
@@ -71,36 +76,34 @@ signal resistance_altered(origin, int, new: int, element: Types.Element)
 			var origin := resist_poison
 			resist_poison = v
 			resistance_altered.emit(origin, resist_electric, Types.Element.POISON)
+#endregion
 
 
 
 
-func _ready() -> void:
-	if hp_current == null:
-		hp_current = hp_max
-
-
-func take_damage(amount: int, is_magical: bool = false, element: Types.Element = Types.Element.NONE, allow_overflow_heal: bool = true) -> void:
-	var damage := calculate_damage(amount, is_magical, element)
+## Take Damage, Accounting for Types and Elemental Resistance
+func take_damage(amount: int, ignore_resistance: bool = false, is_magical: bool = false, element: Types.Element = Types.Element.NONE, allow_overflow_heal: bool = true) -> void:
+	var damage: int = calculate_damage(amount, ignore_resistance, is_magical, element)
 	if damage == 0: return
 
-	var origin := hp_current
 	if damage > 0:
-		hp_current -= damage
-		damaged.emit(origin, hp_current)
+		apply_damage(damage)
 	elif damage < 0 and allow_overflow_heal:
 		# subtract negative damage is healing
-		hp_current -= damage
-		healed.emit(origin, hp_current)
+		heal(-damage)
 
 
-func calculate_damage(amount: int, is_magical: bool = false, element: Types.Element = Types.Element.NONE) -> int:
+func calculate_damage(amount: int, ignore_resistance: bool = false, is_magical: bool = false, element: Types.Element = Types.Element.NONE) -> int:
+	if ignore_resistance:
+		return amount
 	## Damage = Amount - (GenericResist + [MagicResist or PhysicalResist] + ElementalResist)
 	var reduction: int = resist_generic
+	# Magic vs Physical Dmg
 	if is_magical:
 		reduction += resist_magic
 	else:
 		reduction += resist_physical
+	# Elemental Dmg
 	match  element:
 		Types.Element.FIRE:
 			reduction += resist_fire
@@ -113,3 +116,18 @@ func calculate_damage(amount: int, is_magical: bool = false, element: Types.Elem
 		_:
 			pass
 	return amount - reduction
+
+
+## Directly Target HP
+func heal(amount: int) -> void:
+	if amount < 0: return
+	var origin := hp_current
+	hp_current += amount
+	healed.emit(origin, hp_current)
+
+## Directly Target HP
+func apply_damage(amount: int) -> void:
+	if amount < 0: return
+	var origin := hp_current
+	hp_current -= amount
+	damaged.emit(origin, hp_current)

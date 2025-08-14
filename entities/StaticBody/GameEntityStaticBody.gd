@@ -1,10 +1,24 @@
 extends StaticBody2D
 class_name GameEntityStaticBody2D
 
-@export var health_component: HealthComponent
+@export_group("States")
+@export var is_on_fire: bool = false
+@export var is_wet: bool = false
+@export var is_electrified: bool = false
+@export var is_poisoned: bool = false
+
+
+@export var health: HealthComponent
+@export var hurtbox: Hurtbox
 
 func _ready() -> void:
-	if health_component == null:
-		health_component = HealthComponent.new()
-		add_child(health_component)
-	
+	init_components()
+
+
+
+func init_components() -> void:
+	if health:
+		health.hp_max = StatData.default.max_hp
+	if hurtbox:
+		if hurtbox.health == null:
+			hurtbox.health = health

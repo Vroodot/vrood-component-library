@@ -1,1 +1,7 @@
+CollisionShape2D
+Hurtbox
+Node
+HealthComponent
+MovementComponent
+PlayerEntity
 GameEntityCharacterBody2D

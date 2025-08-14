@@ -12,12 +12,13 @@ config_version=5
 
 config/name="Vrood Component Library"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://common/assets/texture/icons/icon.svg"
 
 [autoload]
 
 Events="*res://common/autoload/Events.gd"
-Types="*res://common/autoload/Types.gd"
+StatData="*res://common/autoload/StatData.gd"
+Types="*res://common/autoload/Types/Types.tscn"
 
 [editor_plugins]
 
